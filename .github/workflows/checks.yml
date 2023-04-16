@@ -1,0 +1,21 @@
+---
+name: Checks  # GitHub Actions 워크플로우 이름 설정
+
+on: [push]  # 'push' 이벤트 발생 시 워크플로우 실행
+
+jobs:
+  test-lint:  # 작업 이름 설정
+    name: Test and Lint  # 작업을 설명하는 표시 이름 설정
+    runs-on: ubuntu-20.04  # 작업이 실행될 운영 체제 및 버전 설정
+    steps:  # 작업에 포함된 단계 목록
+      - name: Login to Docker Hub  # 단계 이름 설정
+        uses: docker/login-action@v1  # Docker Hub에 로그인하는 GitHub Action 사용
+        with:
+          username: ${{ secrets.SEOK_DOCKERHUB }}  # GitHub secrets에서 Docker Hub 사용자 이름 가져오기
+          password: ${{ secrets.SEOK_DOCKERHUB_TOKEN }}  # GitHub secrets에서 Docker Hub 액세스 토큰 가져오기
+      - name: Checkout  # 단계 이름 설정
+        uses: actions/checkout@v2  # GitHub 저장소 코드를 체크아웃하는 GitHub Action 사용
+      - name: Test  # 단계 이름 설정
+        run: docker-compose run --rm app sh -c "python manage.py test"  # 도커 컨테이너에서 장고 테스트 실행
+      - name: Lint  # 단계 이름 설정
+        run: docker-compose run --rm app sh -c "flake8"  # 도커 컨테이너에서 flake8 코드 스타일 검사 실행
