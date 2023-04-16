@@ -11,8 +11,8 @@ jobs:
       - name: Login to Docker Hub  # 단계 이름 설정
         uses: docker/login-action@v1  # Docker Hub에 로그인하는 GitHub Action 사용
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}  # GitHub secrets에서 Docker Hub 사용자 이름 가져오기
-          password: ${{ secrets.DOCKERHUB_TOKEN }}  # GitHub secrets에서 Docker Hub 액세스 토큰 가져오기
+          username: ${{ secrets.DOCKERHUB_SEOK }}  # GitHub secrets에서 Docker Hub 사용자 이름 가져오기
+          password: ${{ secrets.DOCKERHUB_SEOK_TOKEN }}  # GitHub secrets에서 Docker Hub 액세스 토큰 가져오기
       - name: Checkout  # 단계 이름 설정
         uses: actions/checkout@v2  # GitHub 저장소 코드를 체크아웃하는 GitHub Action 사용
       - name: Test  # 단계 이름 설정
